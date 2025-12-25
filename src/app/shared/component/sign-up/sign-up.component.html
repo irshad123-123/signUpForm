@@ -1,0 +1,85 @@
+
+            <form #signUp="ngForm" (ngSubmit)="onSignUp()">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>SignUp Form</h3>
+                        <hr>
+                        <div class="form-group">
+                            <label for="username">UserName*</label>
+                            <input
+                            ngModel
+                            required
+                            name="username"
+                            minlength="6"
+                            maxlength="12"
+                            pattern="[a-zA-Z]+"
+                            #userNameRef="ngModel"
+                            class="form-control" id="username">
+                            <strong 
+                            *ngIf="userNameRef.touched && userNameRef.invalid && userNameRef.hasError('required')"
+                            class="text-danger">UserName is required field !</strong>
+                            <strong  class="text-danger"
+                            *ngIf="userNameRef.dirty && userNameRef.hasError('minlength')">
+                        Minimum length should be {{userNameRef.errors?.['minlength'].requiredLength}} 
+                        and actual length is {{userNameRef.errors?.['minlength'].actualLength}}.
+                        </strong>
+                        <strong *ngIf="userNameRef.value?.length == 12" class="text-success">
+                            Max length should be 12
+                        </strong>
+                        <strong 
+                        *ngIf="userNameRef.dirty && userNameRef.hasError('pattern')"
+                        class="text-danger">
+                            UserName should includes only alphabets!!!
+                        </strong>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email*</label>
+                            <input
+                            required
+                            ngModel
+                            name="email"
+                            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                            #email="ngModel"
+                            class="form-control" id="email">
+                            <strong class="text-danger" *ngIf="email.touched && email.hasError('required')">
+                                Email is required field!!!
+                            </strong>
+                            <strong class="text-danger" *ngIf="email.dirty && email.hasError('pattern')">
+                                Invalid email id
+                            </strong>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label for="info">Select Questions</label>
+                            <select
+                            required
+                            ngModel
+                            name="question"
+                            #selectField="ngModel"
+                            class="form-control" id="info">
+                                <option value="favtBook">Favourite City</option>
+                                <option value="favtCountry">Favourite Country</option>
+                            </select>
+                        </div>
+                        <strong
+                        *ngIf="selectField.touched && selectField.hasError('required')"
+                        class="text-danger">
+                            Select question is required field...
+                        </strong>
+                        <div class="form-group mt-2 mb-0">
+                            <label for="ans">Answer</label>
+                            <input
+                            required
+                            name="nas"
+                            ngModel
+                            #ans="ngModel"
+                            class="form-control" id="ans">
+                    </div>
+                    <strong
+                    *ngIf="ans.touched && ans.hasError('required')"
+                    class="text-danger">
+                        Ans is required field...
+                    </strong>
+                        <button [disabled]="signUp.invalid" class="btn btn-primary btn-block mt-3">SignUp</button>
+                    </div>
+                </div>
+            </form>

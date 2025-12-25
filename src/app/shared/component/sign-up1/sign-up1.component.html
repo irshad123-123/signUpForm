@@ -1,0 +1,54 @@
+<mat-card>
+    <mat-card-content>
+        <h2>SignUp</h2>
+        <form #formRef="ngForm" (ngSubmit)="onSignUp()">
+            <mat-form-field class="w-100 pb-0" appearance="fill">
+                <mat-label>UserName</mat-label>
+                <input required ngModel maxlength="12" minlength="6" pattern="[a-zA-Z]+" name="username" #un="ngModel"
+                    matInput>
+            </mat-form-field>
+            <p *ngIf="un.invalid && un.touched && un.hasError('required')" class="text-danger">
+                UserName is required field...
+            </p>
+            <p *ngIf="un.dirty && un.hasError('pattern')" class="text-danger">
+                UserName is includes only alphabets...
+            </p>
+            <p class="text-success" *ngIf="un.value?.length === 12">
+                Max length should be 12...
+            </p>
+            <p class="text-danger" *ngIf="un.dirty && un.hasError('minlength')">
+                Minimum lenght should be {{un.errors?.['minlength'].requiredLength}} and
+                actual length is {{un.errors?.['minlength'].actualLength}}
+            </p>
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input required ngModel name="email" #email="ngModel"
+                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" matInput>
+            </mat-form-field>
+            <p class="text-danger" *ngIf="email.touched && email.hasError('required')">
+                Email is required field...
+            </p>
+            <p class="text-danger" *ngIf="email.dirty && email.hasError('pattern')">
+                Invalid emial id...
+            </p>
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label> Select Questions</mat-label>
+                <mat-select required ngModel name="select" #select="ngModel">
+                    <mat-option value="favtCity">Favourite City</mat-option>
+                    <mat-option value="favtCountry">Favourite Country</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <p *ngIf="select.touched && select.hasError('required')" class="text-danger">
+                Select question is required field...
+            </p>
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Answer</mat-label>
+                <input required ngModel name="ans" #ans="ngModel" matInput>
+            </mat-form-field>
+            <p *ngIf="ans.touched && ans.hasError('required')" class="text-danger">
+                Answer is required field...
+            </p>
+            <button class="w-100" mat-raised-button color="primary">SignUp</button>
+        </form>
+    </mat-card-content>
+</mat-card>
